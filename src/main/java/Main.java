@@ -22,6 +22,7 @@ class Main {
                 System.out.println("\n-------------------------------------------");
                 System.out.println("--- MENU DODAWANIA STUDENTÓW ---");
                 System.out.println("1. Dodaj nowego studenta");
+                System.out.println("2. Wypisz wszystkich studentów"); 
                 System.out.println("0. Wyjście");
                 System.out.print("Wybierz opcję: ");
 
@@ -29,7 +30,7 @@ class Main {
                     choice = scanner.nextInt();
                     scanner.nextLine();
                 } else {
-                    System.out.println("\n**Opcja musi być liczbą całkowitą (0 lub 1). Spróbuj ponownie.**");
+                    System.out.println("\n**Opcja musi być liczbą całkowitą (0, 1 lub 2). Spróbuj ponownie.**");
                     scanner.nextLine();
                     choice = -1;
                     continue;
@@ -58,7 +59,24 @@ class Main {
                         }
 
                         s.addStudent(new Student(name, age));
-                        System.out.println("\n Student " + name + " został dodany i zapisany w db.txt.");
+                        System.out.println("\n✅ Student " + name + " został dodany i zapisany w db.txt.");
+                        break;
+
+                    case 2:
+                        System.out.println("\n-------------------------------------------");
+                        System.out.println("--- WSZYSCY STUDENCI W SYSTEMIE (z pliku db.txt) ---");
+
+                        Collection<Student> students = s.getStudents();
+
+                        if (students == null || students.isEmpty()) {
+                            System.out.println("Brak studentów w pliku.");
+                        } else {
+                            for (Student current : students) {
+                                System.out.println(current.ToString()); 
+                            }
+                        }
+
+                        System.out.println("-------------------------------------------");
                         break;
 
                     case 0:
@@ -66,14 +84,15 @@ class Main {
                         break;
 
                     default:
-                        System.out.println("\n**Nieznana opcja. Wybierz 1, aby dodać studenta, lub 0, aby wyjść.**");
+                        System.out.println("\n**Nieznana opcja. Wybierz 1, aby dodać studenta, 2, aby wypisać, lub 0, aby wyjść.**");
                         break;
                 }
 
             } while (choice != 0);
 
+            // Podsumowanie przy wyjściu z programu
             System.out.println("\n-------------------------------------------");
-            System.out.println("--- WSZYSCY STUDENCI W SYSTEMIE (z pliku db.txt) ---");
+            System.out.println("--- ZAPISANI STUDENCI (PODSUMOWANIE) ---");
 
             Collection<Student> students = s.getStudents();
 
@@ -96,6 +115,3 @@ class Main {
         }
     }
 }
-
-
-
