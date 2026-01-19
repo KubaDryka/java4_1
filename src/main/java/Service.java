@@ -1,41 +1,37 @@
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.List;
 
 public class Service {
+    private final String sciezkaDoPliku = "db.txt";
 
+    // Dodawanie studenta (append = true)
     public void addStudent(Student student) throws IOException {
-        try (FileWriter f = new FileWriter("db.txt", true);
-             BufferedWriter b = new BufferedWriter(f)) {
-
-            b.append(student.ToString());
-            b.newLine();
-        }
+        BufferedWriter writer = new BufferedWriter(new FileWriter(sciezkaDoPliku, true));
+        writer.write(student.toFileString());
+        writer.newLine();
+        writer.close();
     }
 
-    public Collection<Student> getStudents() throws IOException {
-        Collection<Student> ret = new ArrayList<>();
+    // Odczyt listy studentów
+    public List<Student> getStudents() throws IOException {
+        List<Student> studenci = new ArrayList<>();
+        File file = new File(sciezkaDoPliku);
 
-        try (FileReader f = new FileReader("db.txt");
-             BufferedReader reader = new BufferedReader(f)) {
+        if (!file.exists()) {
+            return studenci;
+        }
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    ret.add(Student.Parse(line));
-                }
+        BufferedReader reader = new BufferedReader(new FileReader(sciezkaDoPliku));
+        String currentLine;
+
+        while ((currentLine = reader.readLine()) != null) {
+            Student s = Student.fromFileString(currentLine);
+            if (s != null) {
+                studenci.add(s);
             }
-        } catch (java.io.FileNotFoundException e) {
-            return ret; 
         }
-        return ret;
-    }
-
-    public Student findStudentByName(String name) {
-        return null;
+        reader.close();
+        return studenci;
     }
 }
