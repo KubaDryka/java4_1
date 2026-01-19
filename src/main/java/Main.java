@@ -8,13 +8,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
-        System.out.println("--- System Studentów (Commit 5_1.2) ---");
+        System.out.println("--- System Studentów (Commit 5_1.3) ---");
 
         while (running) {
             System.out.println("\nMENU:");
             System.out.println("1. Dodaj nowego studenta");
             System.out.println("2. Wypisz wszystkich studentów");
-            System.out.println("3. Znajdź studenta po imieniu"); 
+            System.out.println("3. Znajdź studenta po imieniu");
+            System.out.println("4. Usuń studenta");
             System.out.println("0. Wyjdź");
             System.out.print("Wybór: ");
 
@@ -52,11 +53,22 @@ public class Main {
                         System.out.print("Podaj imię szukanego studenta: ");
                         String szukaneImie = scanner.nextLine();
                         Student znaleziony = service.findStudentByName(szukaneImie);
-
                         if (znaleziony != null) {
-                            System.out.println("Znaleziono w bazie: " + znaleziony);
+                            System.out.println("Znaleziono: " + znaleziony);
                         } else {
                             System.out.println("Nie ma studenta o takim imieniu.");
+                        }
+                        break;
+
+                    case "4":
+                        System.out.print("Podaj imię studenta do usunięcia: ");
+                        String doUsuniecia = scanner.nextLine();
+                        boolean usunieto = service.deleteStudent(doUsuniecia);
+
+                        if (usunieto) {
+                            System.out.println("Student został usunięty z bazy.");
+                        } else {
+                            System.out.println("Nie znaleziono studenta o takim imieniu.");
                         }
                         break;
 

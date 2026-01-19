@@ -42,4 +42,32 @@ public class Service {
         }
         return null;
     }
+
+    public boolean deleteStudent(String name) throws IOException {
+        List<Student> students = getStudents();
+        Student doUsuniecia = null;
+
+        for (Student s : students) {
+            if (s.getImie().equalsIgnoreCase(name)) {
+                doUsuniecia = s;
+                break;
+            }
+        }
+
+        if (doUsuniecia != null) {
+            students.remove(doUsuniecia);
+            saveAllStudents(students);
+            return true;
+        }
+        return false;
+    }
+
+    private void saveAllStudents(List<Student> students) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(sciezkaDoPliku, false));
+        for (Student s : students) {
+            writer.write(s.toFileString());
+            writer.newLine();
+        }
+        writer.close();
+    }
 }
