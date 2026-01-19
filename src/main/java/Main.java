@@ -8,12 +8,13 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
-        System.out.println("--- System Studentów (Commit 5_1.1) ---");
+        System.out.println("--- System Studentów (Commit 5_1.2) ---");
 
         while (running) {
             System.out.println("\nMENU:");
             System.out.println("1. Dodaj nowego studenta");
             System.out.println("2. Wypisz wszystkich studentów");
+            System.out.println("3. Znajdź studenta po imieniu"); 
             System.out.println("0. Wyjdź");
             System.out.print("Wybór: ");
 
@@ -24,20 +25,16 @@ public class Main {
                     case "1":
                         System.out.print("Podaj imię i nazwisko: ");
                         String imie = scanner.nextLine();
-
                         System.out.print("Podaj wiek: ");
                         int wiek = Integer.parseInt(scanner.nextLine());
-
                         System.out.print("Podaj email: ");
                         String email = scanner.nextLine();
-
-                        // Tutaj pytamy o nową daną - datę urodzenia
-                        System.out.print("Podaj datę urodzenia (np. 12-05-2000): ");
+                        System.out.print("Podaj datę urodzenia: ");
                         String dataUr = scanner.nextLine();
 
                         Student nowy = new Student(imie, wiek, email, dataUr);
                         service.addStudent(nowy);
-                        System.out.println("Dodano studenta z datą urodzenia!");
+                        System.out.println("Dodano studenta!");
                         break;
 
                     case "2":
@@ -48,6 +45,18 @@ public class Main {
                             for (Student s : lista) {
                                 System.out.println(s);
                             }
+                        }
+                        break;
+
+                    case "3":
+                        System.out.print("Podaj imię szukanego studenta: ");
+                        String szukaneImie = scanner.nextLine();
+                        Student znaleziony = service.findStudentByName(szukaneImie);
+
+                        if (znaleziony != null) {
+                            System.out.println("Znaleziono w bazie: " + znaleziony);
+                        } else {
+                            System.out.println("Nie ma studenta o takim imieniu.");
                         }
                         break;
 

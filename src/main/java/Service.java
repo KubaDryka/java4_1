@@ -5,7 +5,6 @@ import java.util.List;
 public class Service {
     private final String sciezkaDoPliku = "db.txt";
 
-    // Dodawanie studenta (append = true)
     public void addStudent(Student student) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(sciezkaDoPliku, true));
         writer.write(student.toFileString());
@@ -13,7 +12,6 @@ public class Service {
         writer.close();
     }
 
-    // Odczyt listy studentów
     public List<Student> getStudents() throws IOException {
         List<Student> studenci = new ArrayList<>();
         File file = new File(sciezkaDoPliku);
@@ -33,5 +31,15 @@ public class Service {
         }
         reader.close();
         return studenci;
+    }
+
+    public Student findStudentByName(String name) throws IOException {
+        List<Student> students = getStudents();
+        for (Student s : students) {
+            if (s.getImie().equalsIgnoreCase(name)) {
+                return s;
+            }
+        }
+        return null;
     }
 }
