@@ -20,7 +20,7 @@ start = "jdt-language-server"
 language = "java"
 
 [nix]
-channel = "stable-25_05"
+channel = "stable-22_11"
 
 [debugger]
 support = true
@@ -66,26 +66,3 @@ deploymentTarget = "cloudrun"
 
 [agent]
 expertMode = true
-
-[workflows]
-runButton = "Project"
-
-[[workflows.workflow]]
-name = "Project"
-mode = "parallel"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Student System"
-
-[[workflows.workflow]]
-name = "Student System"
-author = "agent"
-
-[workflows.workflow.metadata]
-outputType = "console"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "mvn compile exec:java -Dexec.mainClass=Main -q"
