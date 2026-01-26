@@ -19,6 +19,10 @@ public class Student {
         return wiek;
     }
 
+    public void setWiek(int wiek) {
+        this.wiek = wiek;
+    }
+
     public String getEmail() {
         return email;
     }

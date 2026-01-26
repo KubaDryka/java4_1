@@ -62,6 +62,25 @@ public class Service {
         return false;
     }
 
+    public boolean updateStudentAge(String name, int newAge) throws IOException {
+        List<Student> students = getStudents();
+        boolean znaleziono = false;
+
+        for (Student s : students) {
+            if (s.getImie().equalsIgnoreCase(name)) {
+                s.setWiek(newAge);
+                znaleziono = true;
+                break;
+            }
+        }
+
+        if (znaleziono) {
+            saveAllStudents(students);
+            return true;
+        }
+        return false;
+    }
+
     private void saveAllStudents(List<Student> students) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(sciezkaDoPliku, false));
         for (Student s : students) {

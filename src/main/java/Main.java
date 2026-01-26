@@ -8,7 +8,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
-        System.out.println("--- System Studentów (Commit 5_1.3) ---");
+        System.out.println("--- System Studentów (Pełna wersja: 5.1.1 - 5.1.4) ---");
 
         while (running) {
             System.out.println("\nMENU:");
@@ -16,6 +16,7 @@ public class Main {
             System.out.println("2. Wypisz wszystkich studentów");
             System.out.println("3. Znajdź studenta po imieniu");
             System.out.println("4. Usuń studenta");
+            System.out.println("5. Zaktualizuj wiek studenta"); 
             System.out.println("0. Wyjdź");
             System.out.print("Wybór: ");
 
@@ -63,10 +64,22 @@ public class Main {
                     case "4":
                         System.out.print("Podaj imię studenta do usunięcia: ");
                         String doUsuniecia = scanner.nextLine();
-                        boolean usunieto = service.deleteStudent(doUsuniecia);
+                        if (service.deleteStudent(doUsuniecia)) {
+                            System.out.println("Student został usunięty.");
+                        } else {
+                            System.out.println("Nie znaleziono studenta.");
+                        }
+                        break;
 
-                        if (usunieto) {
-                            System.out.println("Student został usunięty z bazy.");
+                    case "5":
+                        System.out.print("Podaj imię studenta do edycji: ");
+                        String doEdycji = scanner.nextLine();
+
+                        System.out.print("Podaj nowy wiek: ");
+                        int nowyWiek = Integer.parseInt(scanner.nextLine());
+
+                        if (service.updateStudentAge(doEdycji, nowyWiek)) {
+                            System.out.println("Wiek studenta został zaktualizowany.");
                         } else {
                             System.out.println("Nie znaleziono studenta o takim imieniu.");
                         }
